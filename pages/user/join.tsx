@@ -1,30 +1,12 @@
 import React from 'react'
-import LogoImage from '../../assets/image/oio.png'
-import Image from 'next/image'
-
+import { useRouter } from 'next/router'
+import StartOio from '../../components/start/oio'
 
 function join() {
-  return (
+    const router = useRouter()
+    return (
         <div className='w-screen h-screen flex justify-start items-center'>
-            <div className='absolute green1 justify-center items-center min-w-[340px] w-[40vw] h-screen hidden lg:flex overflow-hidden shadow-lg'>
-                <div className='w-[330px] h-[330px] flex justify-center items-center bg-white -mt-[10vh] rounded-full shadow-lg pointer-events-none z-40 lg:w-[400px] lg:h-[400px]'>
-                    <Image
-                        src={LogoImage}
-                        width={250}
-                        height={250}
-                        alt='OIO'
-                        className='animate-pulse pointer-events-none'
-                    />
-                </div>
-                <div 
-                    className='w-[320px] h-[320px] green3 absolute rounded-full top-0 left-0 -mt-[120px] -ml-[110px] 
-                    xl:w-[420px] xl:h-[420px]'
-                />
-                <div 
-                    className='w-[320px] h-[320px] green2 absolute rounded-full right-0 bottom-0 -mb-[120px] -mr-[110px]
-                    xl:w-[420px] xl:h-[420px]'
-                />
-            </div>
+            <StartOio/>
             <div className='absolute min-h-screen w-screen flex justify-center items-center lg:pl-[calc(40vw)]'>
                 <div className='-mt-[10vh] flex flex-col justify-center items-start w-[100%] space-y-10 max-w-[500px]'>
                     <h1 className='text-4xl font-semibold'>회원가입</h1>
@@ -47,7 +29,11 @@ function join() {
                         <button className='absolute right-0 -bottom-[40px] green3 py-[6px] text-xl px-10 text-white rounded-xl'>완료</button>
                     </div>
                 </div>
-                <p className='absolute bottom-[5vh] left-[60px] text-lg text-gray-600  lg:left-[calc(40vw+60px)] cursor-pointer'>
+                <p 
+                    className='absolute bottom-[5vh] left-[60px] text-lg text-gray-600  lg:left-[calc(40vw+60px)] 
+                    cursor-pointer'
+                    onClick={()=> router.push('/user/certified')}
+                >
                     아이디/비밀번호 찾기
                 </p>
             </div>
