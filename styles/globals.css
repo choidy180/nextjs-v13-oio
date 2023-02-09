@@ -32,10 +32,22 @@ input {
         @apply bg-[#6DADA8]
     }
 
+    .dpflex {
+        @apply flex justify-center items-center
+    }
+    .dpflex-col {
+        @apply flex flex-col justify-center items-center
+    }
+
     .startInputBox {
         @apply w-full h-auto py-2 flex flex-col items-start space-y-3 border-b-2 border-solid text-lg focus-within:border-b-[#6DADA8]
     }
     .startInputBox .title {
         @apply text-xl
+    }
+
+    /* enterJoin */
+    .enterJoinInput {
+        @apply w-full bg-gray-200 px-3 py-2 text-slate-700 placeholder:text-slate-500 rounded-lg
     }
 }
