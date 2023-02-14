@@ -8,7 +8,7 @@ const Container = ({children}:any) => {
             <Head>
                 <meta content="width=device-width, initial-scale=1" name="viewport" />
             </Head>
-            <div className='w-screen min-h-screen box-border flex flex-col justify-start items-center pt-[70px] px-8'>
+            <div className='w-screen min-h-screen box-border flex flex-col justify-start items-center pt-[70px] px-6'>
                 <Header/>
                 {children}
             </div>

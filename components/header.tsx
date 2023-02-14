@@ -15,7 +15,7 @@ function Header() {
                 className='pointer-events-none'
             />
 
-            <div className='w-[420px] flex justify-center items-center'>
+            <div className='w-[420px] hidden justify-center items-center md:flex'>
                 <input 
                     type="text"
                     placeholder='Search'
