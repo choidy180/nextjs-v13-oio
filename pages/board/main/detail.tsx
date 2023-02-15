@@ -8,6 +8,8 @@ import { AiOutlinePaperClip } from '@react-icons/all-files/ai/AiOutlinePaperClip
 import { AiOutlineMail } from '@react-icons/all-files/ai/AiOutlineMail'
 import { AiOutlinePlus } from '@react-icons/all-files/ai/AiOutlinePlus'
 import { BsHeart } from '@react-icons/all-files/bs/BsHeart'
+import appleLogo from 'assets/image/apple.png'
+import { BsChevronRight } from '@react-icons/all-files/bs/BsChevronRight'
 
 function mainDetail() {
     return (
@@ -81,12 +83,37 @@ function mainDetail() {
             <div className='w-full flex flex-col items-start'>
                 <h4 className='text-xl font-semibold'>프로젝트</h4>
                  
-                 <div className='w-full space-y-2'>
+                 <div className='w-full space-y-4 py-4'>
                     {[0,1,2,3,4].map((content, i) => (
-                        <div key={i} className='w-full border-[1.6px] p-5 rounded-lg shadow-sm'>
-                            123
+                        <div key={i} className='w-full h-20 border-[1.6px] p-5 rounded-lg shadow-sm flex justify-start items-center transition space-x-4 group hover:border-gray-400 cursor-pointer'>
+                            <div className='w-10 h-10'>
+                                <Image
+                                    src={appleLogo}
+                                    width={100}
+                                    height={100}
+                                    quality={100}
+                                    alt={'Image'}
+                                    className='object-fill rounded-full z-0'
+                                />
+                            </div>
+                            
+                            <div className='flex flex-col items-start space-y-[2px]'>
+                                <p className='leading-4'>APPLE</p>
+                                <p className='leading-4 text-gray-600'>Think Different</p>
+                            </div>
+
+                            <BsChevronRight
+                                className='absolute right-4 w-6 h-6 transition text-gray-400 cursor-pointer group-hover:text-gray-600'
+                            />
                         </div>
                     ))}
+                    
+                    <div className='w-full h-20 p-5 rounded-lg bg-[#E8F4E6] flex justify-center items-center cursor-pointer'>
+                        <AiOutlinePlus
+                            className='w-6 h-6 text-[#6DADA8]'
+                        />
+                    </div>
+
                 </div>
             </div>
         </Container>
