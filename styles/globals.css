@@ -55,4 +55,9 @@ input {
     .enterJoinInput {
         @apply w-full bg-gray-200 px-3 py-2 text-slate-700 placeholder:text-slate-500 rounded-lg
     }
+
+    /* board detail */
+    .board_detail_moreInfo {
+        @apply text-lg flex items-center space-x-3 pt-1
+    }
 }
