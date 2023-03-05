@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import StartOio from '../../components/start/oio'
 import Head from 'next/head'
 
-function join() {
+function Join() {
     const router = useRouter()
     return (
         <>
@@ -47,4 +47,4 @@ function join() {
     )
 }
 
-export default join
+export default Join

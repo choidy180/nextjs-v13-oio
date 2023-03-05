@@ -1,6 +1,6 @@
 import React from 'react'
-import Container from '@/components/container'
 import MainBox from '@/components/board/MainBox'
+import Container from '@/components/Container'
 
 const BoardMain = () => {
     return (

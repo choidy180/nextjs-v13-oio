@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { CiMail } from 'react-icons/ci'
 import StartOio from '@/components/start/oio'
 
-function certified() {
+function Certified() {
     const [step, setStep] = useState<number>(1)
     const [email, setEmail] = useState<string>('')
     const [complete, setComplete] = useState<Boolean>(false)
@@ -82,4 +82,4 @@ function certified() {
     )
 }
 
-export default certified
+export default Certified
