@@ -30,7 +30,7 @@ const MainBox = () => {
                 <h4 className='font-semibold text-lg tracking-tight'>3303 한소희</h4>
                 <p className='flex items-center space-x-2'>
                     <span className='flex items-center transition text-lg space-x-3 text-gray-600 group-hover:text-red-500'>
-                        <AiFillHeart/>165
+                        <AiFillHeart/>164
                     </span>
                     <span className='flex items-center transition text-lg space-x-3 text-gray-600 group-hover:text-blue-500'>
                         <AiOutlineEye/>208
