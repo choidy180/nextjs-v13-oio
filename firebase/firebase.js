@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,8 +17,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth()
-
-export default app
-export { auth }
+const firebaseClientApp = initializeApp(firebaseConfig)
+export const firebaseClientAuth = getAuth(firebaseClientApp)
+connectAuthEmulator(firebaseClientAuth, 'http://localhost:3000')

@@ -2,10 +2,45 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import StartOio from '../components/start/oio'
 import Head from 'next/head'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { firebaseClientAuth } from '@/firebase/firebase'
 
 function Start() {
     const router = useRouter()
-    const [saveId, setSaveId] = useState<Boolean>(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [saveId, setSaveId] = useState(false)
+
+    // Input 입력
+    const onChange = (event:any) => {
+        if (event?.target.name === 'email') {
+            setEmail(event.target.value)
+        } else if (event?.target.name === 'password') {
+            setPassword(event.target.value)
+        }
+    }
+
+    const login = async () => {
+        // 1. firebase 로그인
+        const credential = await signInWithEmailAndPassword(
+            firebaseClientAuth,
+            email,
+            password
+        )
+
+        // 2. JWT 생성
+        const idToken = await credential.user.getIdToken()
+
+        // 3. Next.js의 로그인 함수 호출
+        await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ idToken }),
+        })
+
+        // 완료되면, 인증 받은 사용자만 접근 가능한 페이지로 라우팅
+        await router.push('/user')
+    }
     return (
         <>
             <Head>
@@ -18,11 +53,25 @@ function Start() {
                         <h1 className='text-4xl font-semibold'>로그인</h1>
                         <div className='startInputBox pt-10 group transition'>
                             <h4 className='title group-focus-within:text-[#6DADA8]'>이메일</h4>
-                            <input type="text" placeholder='example@email.com' className='w-full placeholder:tracking-wide'/>
+                            <input 
+                                type="text" 
+                                name='email'
+                                placeholder='example@email.com' 
+                                className='w-full placeholder:tracking-wide'
+                                value={email}
+                                onChange={onChange}
+                            />
                         </div>
                         <div className='startInputBox group transition'>
                             <h4 className='title group-focus-within:text-[#6DADA8]'>비밀번호</h4>
-                            <input type="text" placeholder='password' className='w-full placeholder:tracking-wide'/>
+                            <input 
+                                type="password" 
+                                name='password'
+                                placeholder='password' 
+                                className='w-full placeholder:tracking-wide'
+                                value={password}
+                                onChange={onChange}
+                            />
                         </div>
                         
                         <div className='w-full flex justify-between items-center'>
@@ -41,7 +90,10 @@ function Start() {
                                 }
                                 <span className='pointer-events-none select-none'>아이디 저장</span>
                             </p>
-                            <button className='green3 text-white px-6 py-[6px] rounded-md transition hover:green1'>
+                            <button 
+                                className='green3 text-white px-6 py-[6px] rounded-md transition hover:green1'
+                                onClick={login}
+                            >
                                 로그인
                             </button>
                         </div>
