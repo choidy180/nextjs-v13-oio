@@ -3,44 +3,12 @@ import { useRouter } from 'next/router'
 import StartOio from '../components/start/oio'
 import Head from 'next/head'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { firebaseClientAuth } from '@/firebase/firebase'
 
 function Start() {
     const router = useRouter()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [saveId, setSaveId] = useState(false)
 
-    // Input 입력
-    const onChange = (event:any) => {
-        if (event?.target.name === 'email') {
-            setEmail(event.target.value)
-        } else if (event?.target.name === 'password') {
-            setPassword(event.target.value)
-        }
-    }
-
-    const login = async () => {
-        // 1. firebase 로그인
-        const credential = await signInWithEmailAndPassword(
-            firebaseClientAuth,
-            email,
-            password
-        )
-
-        // 2. JWT 생성
-        const idToken = await credential.user.getIdToken()
-
-        // 3. Next.js의 로그인 함수 호출
-        await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ idToken }),
-        })
-
-        // 완료되면, 인증 받은 사용자만 접근 가능한 페이지로 라우팅
-        await router.push('/user')
-    }
+    
     return (
         <>
             <Head>
@@ -58,8 +26,8 @@ function Start() {
                                 name='email'
                                 placeholder='example@email.com' 
                                 className='w-full placeholder:tracking-wide'
-                                value={email}
-                                onChange={onChange}
+                                // value={email}
+                                // onChange={onChange}
                             />
                         </div>
                         <div className='startInputBox group transition'>
@@ -69,8 +37,8 @@ function Start() {
                                 name='password'
                                 placeholder='password' 
                                 className='w-full placeholder:tracking-wide'
-                                value={password}
-                                onChange={onChange}
+                                // value={password}
+                                // onChange={onChange}
                             />
                         </div>
                         
@@ -92,7 +60,7 @@ function Start() {
                             </p>
                             <button 
                                 className='green3 text-white px-6 py-[6px] rounded-md transition hover:green1'
-                                onClick={login}
+                                // onClick={() => setLogin(true)}
                             >
                                 로그인
                             </button>

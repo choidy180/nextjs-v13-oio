@@ -1,7 +1,8 @@
+import { auth } from '@/firebase'
 import { createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { auth } from '@/firebase/firebase'
+
 
 interface IAuth {
     user: User | null //유저
