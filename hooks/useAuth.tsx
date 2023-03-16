@@ -1,5 +1,5 @@
 import { auth } from '@/firebase'
-import { createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -70,13 +70,53 @@ const AuthProvider = ({children}: AuthProviderProps) => {
         .catch((error) => alert(error.message))
         .finally(() => setLoading(false)) // 마무리 후 로딩해제
     }
+
+    // 로그인
+    const signIn = async (email: string, password: string) => {
+        setLoading(true)
+
+        await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setUser(userCredential.user)
+                router.push('/')
+                setLoading(false)
+            }
+        )
+        .catch((error) => alert(error.message))
+        .finally(() => setLoading(false))
+    }
+
+    // 로그아웃
+    const logout = async () => {
+        setLoading(true)
+
+        signOut(auth)
+            .then(()=>{
+                setUser(null)
+            })
+            .catch((error) => alert(error.message))
+            .finally(() => setLoading(false))
+    }
+
+    const memoValue = React.useMemo(
+        () => ({
+            user,
+            signUp,
+            signIn,
+            loading,
+            logout,
+            error
+        }),
+        [user, loading]
+    )
     return (
-        <>
-        </>
+        <AuthContext.Provider value={memoValue}>
+            {!initialLoading && children}
+        </AuthContext.Provider>
     )
 }
 
 export default function useAuth() {
-
+    return React.useContext(AuthContext)
 }
 

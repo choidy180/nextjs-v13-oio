@@ -2,11 +2,34 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import StartOio from '../components/start/oio'
 import Head from 'next/head'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import useAuth from '@/hooks/useAuth'
+import { useForm } from 'react-hook-form'
+import { SubmitHandler } from 'react-hook-form/dist/types'
+
+interface Inputs {
+    email: string
+    password: string
+}
 
 function Start() {
     const router = useRouter()
     const [saveId, setSaveId] = useState(false)
+    const [login, setLogin] = useState(false);
+    const { signIn, signUp } = useAuth()
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<Inputs>()
+    const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+        if (login) {
+            await signIn(email, password)
+        } else {
+            await signUp(email, password)
+        }
+    }
 
     
     return (
@@ -17,28 +40,27 @@ function Start() {
             <div className='w-screen h-screen flex justify-start items-center'>
                 <StartOio/>
                 <div className='absolute min-h-screen w-screen flex justify-center items-center lg:pl-[calc(40vw)]'>
-                    <div className='-mt-[10vh] flex flex-col justify-center items-start w-[100%] space-y-14 max-w-[500px]'>
+                    <form 
+                        onSubmit={handleSubmit(onSubmit)}
+                        className='-mt-[10vh] flex flex-col justify-center items-start w-[100%] space-y-14 max-w-[500px]'
+                    >
                         <h1 className='text-4xl font-semibold'>로그인</h1>
                         <div className='startInputBox pt-10 group transition'>
                             <h4 className='title group-focus-within:text-[#6DADA8]'>이메일</h4>
                             <input 
                                 type="text" 
-                                name='email'
                                 placeholder='example@email.com' 
                                 className='w-full placeholder:tracking-wide'
-                                // value={email}
-                                // onChange={onChange}
+                                {...register('email', {required: true})}
                             />
                         </div>
                         <div className='startInputBox group transition'>
                             <h4 className='title group-focus-within:text-[#6DADA8]'>비밀번호</h4>
                             <input 
                                 type="password" 
-                                name='password'
                                 placeholder='password' 
                                 className='w-full placeholder:tracking-wide'
-                                // value={password}
-                                // onChange={onChange}
+                                {...register('password', {required: true})}
                             />
                         </div>
                         
@@ -60,12 +82,12 @@ function Start() {
                             </p>
                             <button 
                                 className='green3 text-white px-6 py-[6px] rounded-md transition hover:green1'
-                                // onClick={() => setLogin(true)}
+                                onClick={() => setLogin(true)}
                             >
                                 로그인
                             </button>
                         </div>
-                    </div>
+                    </form>
                     <p 
                         className='absolute bottom-[5vh] left-[60px] text-lg text-gray-600  lg:left-[calc(40vw+60px)] 
                         cursor-pointer'
